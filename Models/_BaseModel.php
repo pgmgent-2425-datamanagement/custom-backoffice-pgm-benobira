@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+#[\AllowDynamicProperties]
 class BaseModel {
 
     protected $table;
