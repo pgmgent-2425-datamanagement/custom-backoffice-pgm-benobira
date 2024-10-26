@@ -16,3 +16,7 @@ body {
 nav a {
   @apply text-white hover:bg-primary transition-colors duration-300; /* Hover effect with the primary color */
 }
+
+::selection {
+  @apply bg-primary bg-opacity-90 text-white; /* Selection color */
+}
