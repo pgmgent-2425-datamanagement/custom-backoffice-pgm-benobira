@@ -9,7 +9,7 @@
 </div>
 
 <div class="mb-6">
-    <a href="/tables/add" class="bg-primary hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
+    <a href="/tables/add" class="bg-lightPrimary hover:bg-primary text-white py-2 px-4 rounded inline-block">
         Add New Table
     </a>
 </div>

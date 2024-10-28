@@ -20,7 +20,7 @@ $router->get('/reservations/edit/(\d+)', 'ReservationController@edit'); // Edit 
 $router->post('/reservations/edit/(\d+)', 'ReservationController@edit'); // Handle reservation edit submission
 $router->get('/reservations/delete/(\d+)', 'ReservationController@delete'); // Delete reservation
 
-// Tables Routes
+// Tables Routes ✅
 $router->get('/tables', 'TableController@index'); // List tables
 $router->get('/tables/add', 'TableController@add'); // Add table form
 $router->post('/tables/add', 'TableController@add'); // Handle add table submission
@@ -28,7 +28,7 @@ $router->get('/tables/edit/(\d+)', 'TableController@edit'); // Edit table form
 $router->post('/tables/edit/(\d+)', 'TableController@edit'); // Handle table edit submission
 $router->get('/tables/delete/(\d+)', 'TableController@delete'); // Delete table
 
-// Menus Routes
+// Menus Routes ✅
 $router->get('/menus', 'MenuController@index'); // List menus
 $router->get('/menus/add', 'MenuController@add'); // Add menu form
 $router->post('/menus/add', 'MenuController@add'); // Handle add menu submission
