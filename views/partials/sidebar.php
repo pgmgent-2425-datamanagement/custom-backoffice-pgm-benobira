@@ -28,6 +28,12 @@
             </svg>
             Menus
         </a>
+        <a href="/filemanager" class="flex items-center gap-2 p-6 hover:bg-indigo-500">
+            <svg class="h-6 w-6 mr-3" xmlns="http://www.w3.org/2000/svg" width="800" height="800" fill="none" viewBox="0 0 24 24">
+                <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9v8.8c0 1.12 0 1.68-.218 2.108a2 2 0 0 1-.874.874C17.48 21 16.92 21 15.8 21H8.2c-1.12 0-1.68 0-2.108-.218a2 2 0 0 1-.874-.874C5 19.48 5 18.92 5 17.8V6.2c0-1.12 0-1.68.218-2.108a2 2 0 0 1 .874-.874C6.52 3 7.08 3 8.2 3H13m6 6-6-6m6 6h-5a1 1 0 0 1-1-1V3"/>
+            </svg>
+            Filemanager
+        </a>
         <a href="/users" class="flex items-center gap-2 p-6 hover:bg-indigo-500">
             <svg class="h-6 w-6 mr-3" xmlns="http://www.w3.org/2000/svg" width="800" height="800" fill="none" viewBox="0 0 24 24">
                 <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 14a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7Z" />

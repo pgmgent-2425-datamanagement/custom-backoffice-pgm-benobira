@@ -1,7 +1,7 @@
 <tr class="border-b border-gray-200 hover:bg-gray-100">
     <td class="py-3 px-6"><?= $menu->name ?></td>
     <td class="py-3 px-6">
-        <span class="block md:hidden"><?= substr($menu->description, 0, 15) ?>...</span>
+        <span class="block md:hidden"><?= substr($menu->description, 0, 10) ?>...</span>
         <span class="hidden md:block"><?= $menu->description ?></span>
     </td>
     <td class="py-3 px-6"><?= $menu->price ?></td>

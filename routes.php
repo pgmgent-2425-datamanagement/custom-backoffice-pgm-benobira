@@ -35,3 +35,12 @@ $router->post('/menus/add', 'MenuController@add'); // Handle add menu submission
 $router->get('/menus/edit/(\d+)', 'MenuController@edit'); // Edit menu form
 $router->post('/menus/edit/(\d+)', 'MenuController@edit'); // Handle menu edit submission
 $router->get('/menus/delete/(\d+)', 'MenuController@delete'); // Delete menu
+
+// Filemanager Routes ✅
+$router->get('/filemanager', 'FilemanagerController@index'); // List files
+$router->get('/filemanager/add', 'FilemanagerController@add'); // Add file form
+$router->post('/filemanager/add', 'FilemanagerController@add'); // Handle add file submission
+$router->get('/filemanager/add/(.*)', 'FilemanagerController@add'); // Add file form
+$router->post('/filemanager/add/(.*)', 'FilemanagerController@add'); // Handle add file submission
+$router->get('/filemanager/delete/(.*)', 'FilemanagerController@delete'); // Delete file
+$router->get('/filemanager/(.*)', 'FilemanagerController@index'); // List files in a folder

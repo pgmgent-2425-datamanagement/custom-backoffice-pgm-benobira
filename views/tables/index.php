@@ -33,6 +33,11 @@
 
 <div class="mt-6">
     <h2 class="text-2xl font-semibold text-gray-800 mb-4">Table Distribution</h2>
+    <div class="max-w-2xl mb-6">
+        <p class="text-gray-600">
+            This chart shows the distribution of tables based on the number of seats they have. 
+        </p>
+    </div>
     <canvas id="tableChart" class="bg-white shadow-md rounded-lg p-6 w-full"></canvas>
     <script src="/js/SeatingAnalytics.js"></script>
     <script>
