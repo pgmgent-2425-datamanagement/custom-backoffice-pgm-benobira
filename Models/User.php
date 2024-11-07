@@ -34,4 +34,15 @@ class User extends BaseModel {
             ':id' => $this->id
         ]);
     }
+
+    // Public function to get all users
+    public static function getTotalUsers() {
+        global $db;
+        $sql = "SELECT COUNT(*) as total FROM users";
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
+    }
 }

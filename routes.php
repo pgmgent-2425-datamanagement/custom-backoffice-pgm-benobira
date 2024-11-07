@@ -12,7 +12,7 @@ $router->get('/users/edit/(\d+)', 'UserController@edit'); // Edit user form
 $router->post('/users/edit/(\d+)', 'UserController@edit'); // Handle user edit submission
 $router->get('/users/delete/(\d+)', 'UserController@delete'); // Delete user
 
-// Reservations Routes
+// Reservations Routes ✅
 $router->get('/reservations', 'ReservationController@index'); // List reservations
 $router->get('/reservations/add', 'ReservationController@add'); // Add reservation form
 $router->post('/reservations/add', 'ReservationController@add'); // Handle add reservation submission

@@ -31,71 +31,74 @@
     </table>
 </div>
 
-<div class="mt-6">
+<div class="grid grid-cols-1 mt-6 bg-white shadow-md rounded-lg p-6">
     <h2 class="text-2xl font-semibold text-gray-800 mb-4">Table Distribution</h2>
     <div class="max-w-2xl mb-6">
         <p class="text-gray-600">
             This chart shows the distribution of tables based on the number of seats they have. 
         </p>
     </div>
-    <canvas id="tableChart" class="bg-white shadow-md rounded-lg p-6 w-full"></canvas>
-    <script src="/js/SeatingAnalytics.js"></script>
-    <script>
-        const ctx = document.getElementById('tableChart').getContext('2d');
+    <div class="h-96">
+        <canvas id="tableChart"></canvas>
+    </div>
+</div>
 
-        // Prepare the data
-        const seatCounts = <?php 
-            $seatCounts = [];
-            foreach ($tables as $table) {
-                $seatCounts[$table->seats] = ($seatCounts[$table->seats] ?? 0) + 1;
-            }
-            echo json_encode(array_keys($seatCounts)); 
-        ?>;
-        
-        const tableCounts = <?php 
-            echo json_encode(array_values($seatCounts)); 
-        ?>;
+<script>
+    const ctx = document.getElementById('tableChart').getContext('2d');
 
-        // Create the chart
-        const tableChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: seatCounts, // Seat counts as labels
-                datasets: [{
-                    label: 'Number of Tables',
-                    data: tableCounts, // Count of tables for each seat count
-                    backgroundColor: 'rgba(79, 70, 229, 0.75)', // Use your primary color with some transparency
-                    borderColor: 'rgba(79, 70, 229, 1)',
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true, // Start the Y-axis at 0
-                        title: {
-                            display: true,
-                            text: 'Number of Tables'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Amount of Seats'
-                        }
+    // Prepare the data
+    const seatCounts = <?php 
+        $seatCounts = [];
+        foreach ($tables as $table) {
+            $seatCounts[$table->seats] = ($seatCounts[$table->seats] ?? 0) + 1;
+        }
+        echo json_encode(array_keys($seatCounts)); 
+    ?>;
+    
+    const tableCounts = <?php 
+        echo json_encode(array_values($seatCounts)); 
+    ?>;
+
+    // Create the chart
+    const tableChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: seatCounts, // Seat counts as labels
+            datasets: [{
+                label: 'Number of Tables',
+                data: tableCounts, // Count of tables for each seat count
+                backgroundColor: 'rgba(79, 70, 229, 0.75)', // Use your primary color with some transparency
+                borderColor: 'rgba(79, 70, 229, 1)',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true, // Start the Y-axis at 0
+                    title: {
+                        display: true,
+                        text: 'Number of Tables'
                     }
                 },
-                responsive: true,
-                plugins: {
-                    legend: {
+                x: {
+                    title: {
                         display: true,
-                        position: 'top',
-                    },
-                    tooltip: {
-                        enabled: true,
+                        text: 'Amount of Seats'
                     }
                 }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                tooltip: {
+                    enabled: true,
+                }
             }
-        });
-    </script>
-</div>
+        }
+    });
+</script>

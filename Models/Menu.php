@@ -44,4 +44,15 @@ class Menu extends BaseModel {
             ':id' => $this->id
         ]);
     }
+
+    // Public function to get all menu items
+    public static function getTotalMenus() {
+        global $db;
+        $sql = "SELECT COUNT(*) as total FROM menus";
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
+    }
 }

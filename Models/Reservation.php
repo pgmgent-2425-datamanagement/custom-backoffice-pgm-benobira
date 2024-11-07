@@ -126,4 +126,61 @@ class Reservation extends BaseModel {
         $reservations = $stmt->fetchAll();
         return $this->castToModel($reservations);
     }
+
+    // Static method to get the most popular menus
+    public static function getMostPopularMenus($limit = 5) {
+        global $db;  // Access the global database connection
+        $sql = "SELECT menus.name, SUM(reservation_menu.amount) as total_ordered
+                FROM reservation_menu
+                JOIN menus ON reservation_menu.menu_id = menus.id
+                GROUP BY reservation_menu.menu_id
+                ORDER BY total_ordered DESC
+                LIMIT :limit";
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    // Static method to get stats on reservation statuses
+    public static function getReservationStatusStats() {
+        global $db;
+        $sql = "SELECT status, COUNT(*) as count
+                FROM reservations
+                GROUP BY status";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $statusStats = [];
+        foreach ($results as $row) {
+            $statusStats[$row['status']] = (int)$row['count'];
+        }
+        return $statusStats;
+    }
+
+    // Static method to get the total number of reservations
+    public static function getTotalReservations() {
+        global $db;
+        $sql = "SELECT COUNT(*) as total FROM reservations";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
+    }
+
+    // Static method to get today's reservations
+    public static function getTodayReservations() {
+        global $db;
+        $today = date('Y-m-d');
+        $sql = "SELECT reservations.*, users.name as user_name, tables.table_number
+                FROM reservations
+                LEFT JOIN users ON reservations.user_id = users.id
+                LEFT JOIN reservation_table ON reservations.id = reservation_table.reservation_id
+                LEFT JOIN tables ON reservation_table.table_id = tables.id
+                WHERE reservations.reservation_date = :today
+                ORDER BY reservations.reservation_time ASC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([':today' => $today]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

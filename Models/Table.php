@@ -40,4 +40,15 @@ class Table extends BaseModel {
             ':id' => $this->id
         ]);
     }
+
+    // Public function to get all tables
+    public static function getTotalTables() {
+        global $db;
+        $sql = "SELECT COUNT(*) as total FROM tables";
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
+    }
 }
