@@ -90,13 +90,13 @@ class MenuController extends BaseController {
                 }
             }
 
-        // Save the updated menu item
-        if ($menu->save()) {
-            // Redirect to the menus page
-            header('Location: /menus');
-            exit;
+            // Save the updated menu item
+            if ($menu->save()) {
+                // Redirect to the menus page
+                header('Location: /menus');
+                exit;
+            }
         }
-    }
 
         // Load the view for editing a menu item
         self::loadView('/menus/edit', [

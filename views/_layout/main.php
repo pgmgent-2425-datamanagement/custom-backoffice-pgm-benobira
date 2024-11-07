@@ -12,6 +12,8 @@
     <!-- Import Alpine.js and Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <!-- Import the favicon -->
+    <link rel="icon" href="/icons/favicon.svg" type="image/x-icon">
 </head>
 <body class="font-poppins bg-gray-50">
     <div class="flex min-h-screen">
