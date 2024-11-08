@@ -7,13 +7,21 @@ use App\Models\Menu;
 class MenuController extends BaseController {
 
     public static function index() {
-        // Get all menu items
-        $menus = Menu::all();
-
-        // Load the view
+        $search = $_GET['search'] ?? null;
+    
+        if ($search) {
+            // Perform search if a search term is provided
+            $menus = Menu::search($search);
+        } else {
+            // Otherwise, get all menu items ordered by name
+            $menus = Menu::allOrderedBy('name', 'ASC');
+        }
+    
+        // Load the view with the retrieved menus
         self::loadView('/menus/index', [
             'title' => 'Menus',
-            'menus' => $menus
+            'menus' => $menus,
+            'searchTerm' => $search
         ]);
     }
 

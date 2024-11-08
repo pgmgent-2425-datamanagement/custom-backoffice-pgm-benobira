@@ -55,4 +55,17 @@ class Menu extends BaseModel {
         $stmt->execute();
         return (int)$stmt->fetchColumn();
     }
+
+    // Public function to search for a menu item by name or description
+    public static function search($search) {
+        global $db;
+        $sql = "SELECT * FROM menus WHERE name LIKE :search OR description LIKE :search ORDER BY name ASC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([':search' => '%' . $search . '%']);
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        // Use BaseModel's `castToModel` to convert each result to a Menu object
+        $menuModel = new self();
+        return $menuModel->castToModel($results);
+    }
 }

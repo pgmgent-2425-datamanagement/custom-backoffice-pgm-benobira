@@ -118,8 +118,8 @@ class Reservation extends BaseModel {
     public function allWithUser() {
         $sql = "SELECT reservations.*, users.name AS user_name 
                 FROM reservations
-                LEFT JOIN users ON reservations.user_id = users.id";
-    
+                LEFT JOIN users ON reservations.user_id = users.id
+                ORDER BY reservations.reservation_date ASC, reservations.reservation_time ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         
@@ -182,5 +182,37 @@ class Reservation extends BaseModel {
         $stmt = $db->prepare($sql);
         $stmt->execute([':today' => $today]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    // Public function to filter reservations by user, date, and status
+    public static function filter($userId = null, $reservationDate = null, $status = null) {
+        global $db;
+        $sql = "SELECT reservations.*, users.name AS user_name, tables.table_number 
+                FROM reservations 
+                LEFT JOIN users ON reservations.user_id = users.id 
+                LEFT JOIN reservation_table ON reservations.id = reservation_table.reservation_id
+                LEFT JOIN tables ON reservation_table.table_id = tables.id
+                WHERE 1=1"; // Placeholder condition to simplify adding more conditions
+
+        $params = [];
+
+        if ($userId) {
+            $sql .= " AND reservations.user_id = :user_id";
+            $params[':user_id'] = $userId;
+        }
+        if ($reservationDate) {
+            $sql .= " AND reservations.reservation_date = :reservation_date";
+            $params[':reservation_date'] = $reservationDate;
+        }
+        if ($status) {
+            $sql .= " AND reservations.status = :status";
+            $params[':status'] = $status;
+        }
+
+        $sql .= " ORDER BY reservations.reservation_date ASC, reservations.reservation_time ASC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
+
+        return $stmt->fetchAll(\PDO::FETCH_CLASS, self::class);
     }
 }

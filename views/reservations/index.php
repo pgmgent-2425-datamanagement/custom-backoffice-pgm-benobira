@@ -13,6 +13,34 @@
     </a>
 </div>
 
+<div class="mb-6">
+    <form method="GET" action="/reservations" class="flex gap-4">
+        <!-- User Filter -->
+        <select name="user_id" class="px-4 py-2 border border-gray-300 rounded-md">
+            <option value="">All Users</option>
+            <?php foreach ($users as $user): ?>
+                <option value="<?= $user->id ?>" <?= ($selectedUserId == $user->id) ? 'selected' : '' ?>>
+                    <?= $user->name ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <!-- Date Filter -->
+        <input type="date" name="reservation_date" value="<?= $selectedDate ?? '' ?>"
+            class="px-4 py-2 border border-gray-300 rounded-md">
+
+        <!-- Status Filter -->
+        <select name="status" class="px-4 py-2 border border-gray-300 rounded-md">
+            <option value="">All Statuses</option>
+            <option value="pending" <?= ($selectedStatus == 'pending') ? 'selected' : '' ?>>Pending</option>
+            <option value="accepted" <?= ($selectedStatus == 'accepted') ? 'selected' : '' ?>>Accepted</option>
+            <option value="cancelled" <?= ($selectedStatus == 'cancelled') ? 'selected' : '' ?>>Cancelled</option>
+        </select>
+
+        <button type="submit" class="bg-lightPrimary hover:bg-primary text-white py-2 px-4 rounded">Filter</button>
+    </form>
+</div>
+
 <div class="overflow-x-auto">
     <table class="min-w-full bg-white shadow-md rounded-lg">
         <thead>

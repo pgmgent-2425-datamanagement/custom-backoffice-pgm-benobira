@@ -19,6 +19,19 @@
     </a>
 </div>
 
+<div class="mb-6">
+    <form method="GET" action="/menus" class="flex gap-2">
+        <input 
+            type="text" 
+            name="search" 
+            value="<?= htmlspecialchars($searchTerm ?? '') ?>" 
+            placeholder="Search menus by name or description" 
+            class="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+        >
+        <button type="submit" class="bg-lightPrimary hover:bg-primary text-white py-2 px-4 rounded">Search</button>
+    </form>
+</div>
+
 <div class="overflow-x-auto">
     <table class="min-w-full bg-white shadow-md rounded-lg">
         <thead>

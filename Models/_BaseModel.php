@@ -54,6 +54,17 @@ class BaseModel {
         return self::castToModel($db_items);
     }
 
+    private function allOrderedBy ( string $column, string $order = 'ASC' ) {
+
+        $sql = 'SELECT * FROM `' . $this->table . '` ORDER BY `' . $column . '` ' . $order;
+        $pdo_statement = $this->db->prepare($sql);
+        $pdo_statement->execute();
+
+        $db_items = $pdo_statement->fetchAll(); 
+        
+        return self::castToModel($db_items);
+    }
+
     private function find ( int $id ) {
 
         $sql = 'SELECT * FROM `' . $this->table . '` WHERE `' . $this->pk . '` = :p_id';

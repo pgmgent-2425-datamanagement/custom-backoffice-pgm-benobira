@@ -10,20 +10,23 @@ use App\Models\User;
 class ReservationController extends BaseController {
 
     public static function index() {
-        // Fetch all reservations
-        $reservationModel = new Reservation();
-        $reservations = $reservationModel->allWithUser();
-
-        // Fetch table numbers for each reservation
-        foreach ($reservations as $reservation) {
-            $table = $reservation->getTable(); 
-            $reservation->table_number = $table['table_number'] ?? 'N/A';
-        }
-
-        // Load the view
+        $userId = $_GET['user_id'] ?? null;
+        $reservationDate = $_GET['reservation_date'] ?? null;
+        $status = $_GET['status'] ?? null;
+    
+        $reservations = Reservation::filter($userId, $reservationDate, $status);
+    
+        // Fetch users for the filter dropdown
+        $users = User::all();
+    
+        // Load the view with the filtered reservations
         self::loadView('/reservations/index', [
             'title' => 'Reservations',
-            'reservations' => $reservations
+            'reservations' => $reservations,
+            'users' => $users,
+            'selectedUserId' => $userId,
+            'selectedDate' => $reservationDate,
+            'selectedStatus' => $status
         ]);
     }
 
