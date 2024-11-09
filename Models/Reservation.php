@@ -11,6 +11,8 @@ class Reservation extends BaseModel {
     public $reservation_time;
     public $guests;
     public $status;
+    public $comment;
+    public $id;
 
 /* 
 * The following method is used to save the reservation
@@ -20,7 +22,7 @@ class Reservation extends BaseModel {
 
     // Save or update a reservation
     public function save() {
-        $sql = "UPDATE {$this->table} SET user_id = :user_id, reservation_date = :reservation_date, reservation_time = :reservation_time, guests = :guests, status = :status WHERE id = :id";
+        $sql = "UPDATE {$this->table} SET user_id = :user_id, reservation_date = :reservation_date, reservation_time = :reservation_time, guests = :guests, status = :status, comment = :comment WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
@@ -29,6 +31,7 @@ class Reservation extends BaseModel {
             ':reservation_time' => $this->reservation_time,
             ':guests' => $this->guests,
             ':status' => $this->status,
+            ':comment' => $this->comment,
             ':id' => $this->id
         ]);
     }
@@ -41,7 +44,7 @@ class Reservation extends BaseModel {
 
     // Add a new reservation
     public function add() {
-        $sql = "INSERT INTO {$this->table} (user_id, reservation_date, reservation_time, guests, status) VALUES (:user_id, :reservation_date, :reservation_time, :guests, :status)";
+        $sql = "INSERT INTO {$this->table} (user_id, reservation_date, reservation_time, guests, status, comment) VALUES (:user_id, :reservation_date, :reservation_time, :guests, :status, :comment)";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
@@ -49,7 +52,8 @@ class Reservation extends BaseModel {
             ':reservation_date' => $this->reservation_date,
             ':reservation_time' => $this->reservation_time,
             ':guests' => $this->guests,
-            ':status' => $this->status
+            ':status' => $this->status,
+            ':comment' => $this->comment
         ]);
 
         $this->id = $this->db->lastInsertId(); // Get the ID of the inserted reservation
@@ -217,7 +221,7 @@ class Reservation extends BaseModel {
             $params[':status'] = $status;
         }
 
-        $sql .= " ORDER BY reservations.reservation_date ASC, reservations.reservation_time ASC";
+        $sql .= " ORDER BY reservations.reservation_date DESC, reservations.reservation_time DESC";
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
 

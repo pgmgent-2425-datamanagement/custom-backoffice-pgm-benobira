@@ -38,6 +38,7 @@ class ReservationController extends BaseController {
             $reservation->reservation_time = $_POST['reservation_time'];
             $reservation->guests = $_POST['guests'];
             $reservation->status = $_POST['status'];
+            $reservation->comment = $_POST['comment'] ?? null;
 
             if ($reservation_id = $reservation->add()) {
                 if (isset($_POST['menus'])) {
@@ -89,6 +90,7 @@ class ReservationController extends BaseController {
             $reservation->reservation_time = $_POST['reservation_time'];
             $reservation->guests = $_POST['guests'];
             $reservation->status = $_POST['status'];
+            $reservation->comment = $_POST['comment'] ?? null;
     
             if ($reservation->save()) {
                 // Update table association
@@ -137,6 +139,80 @@ class ReservationController extends BaseController {
             // Handle the case where the reservation does not exist
             header('Location: /reservations');
             exit;
+        }
+    }
+
+    // APIGetReservations (/api/reservations)
+    public static function APIGetReservations() {
+        $reservations = Reservation::all();
+        if (!$reservations) {
+            http_response_code(404);
+            echo json_encode(['error' => 'No reservations found']);
+            exit;
+        }
+        foreach ($reservations as $reservation) {
+            $output[] = [
+                'id' => $reservation->id,
+                'user_id' => $reservation->user_id,
+                'reservation_date' => $reservation->reservation_date,
+                'reservation_time' => $reservation->reservation_time,
+                'guests' => $reservation->guests,
+                'status' => $reservation->status,
+                'table' => $reservation->getTable(),
+                'menus' => $reservation->getMenus(),
+                'comment' => $reservation->comment,
+            ];
+        }
+        echo json_encode($output);
+    }
+
+    // APIGetReservation (/api/reservations/(\d+))
+    public static function APIGetReservation($id) {
+        $reservation = Reservation::find($id);
+        if ($reservation->id === null) {
+            http_response_code(404);
+            echo json_encode(['error' => 'Reservation not found']);
+            exit;
+        }
+        $output = [
+            'id' => $reservation->id,
+            'user_id' => $reservation->user_id,
+            'reservation_date' => $reservation->reservation_date,
+            'reservation_time' => $reservation->reservation_time,
+            'guests' => $reservation->guests,
+            'status' => $reservation->status,
+            'table' => $reservation->getTable(),
+            'menus' => $reservation->getMenus(),
+            'comment' => $reservation->comment,
+        ];
+        echo json_encode($output);
+    }
+
+    // APIAddComment (/api/reservations/(\d+)/comment)
+    public static function APIAddComment($id) {
+        $reservation = Reservation::find($id);
+        if ($reservation->id === null) {
+            http_response_code(404);
+            echo json_encode(['error' => 'Cannot add comment to non-existing reservation']);
+            exit;
+        }
+
+        // source: https://www.tutorialspoint.com/how-to-receive-json-post-with-php
+        $comment = json_decode(file_get_contents('php://input'), true);
+
+        // Check if the comment is provided
+        if (!isset($comment['comment'])) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Comment is required in the request body']);
+            exit;
+        }
+
+        $reservation->comment = $comment['comment'];
+        if ($reservation->save()) {
+            echo json_encode(['message' => 'Comment added']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['error' => 'Failed to add comment']);
         }
     }
 }

@@ -20,6 +20,11 @@ $router->get('/reservations/edit/(\d+)', 'ReservationController@edit'); // Edit 
 $router->post('/reservations/edit/(\d+)', 'ReservationController@edit'); // Handle reservation edit submission
 $router->get('/reservations/delete/(\d+)', 'ReservationController@delete'); // Delete reservation
 
+// API routes for reservations ✅
+$router->get('/api/reservations', 'ReservationController@APIGetReservations');
+$router->get('/api/reservations/(\d+)', 'ReservationController@APIGetReservation');
+$router->post('/api/reservations/(\d+)/comment', 'ReservationController@APIAddComment');
+
 // Tables Routes ✅
 $router->get('/tables', 'TableController@index'); // List tables
 $router->get('/tables/add', 'TableController@add'); // Add table form

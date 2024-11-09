@@ -65,6 +65,11 @@
         <?php endforeach; ?>
     </div>
 
+    <div class="mb-4">
+        <label for="comment" class="block text-gray-700 font-medium mb-2">Comment</label>
+        <textarea id="comment" name="comment" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+    </div>
+
     <div class="flex items-center justify-between mt-6">
         <a href="/reservations" class="text-gray-500 hover:text-gray-700">Back</a>
         <input type="submit" value="Add Reservation"
