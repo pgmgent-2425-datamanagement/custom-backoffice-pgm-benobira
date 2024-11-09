@@ -34,28 +34,6 @@ class Menu extends BaseModel {
         ]);
     }
 
-    // Public function to delete a menu item
-    public function delete() {
-        $sql = "DELETE FROM menus WHERE id = :id";
-
-        $stmt = $this->db->prepare($sql);
-
-        return $stmt->execute([
-            ':id' => $this->id
-        ]);
-    }
-
-    // Public function to get all menu items
-    public static function getTotalMenus() {
-        global $db;
-        $sql = "SELECT COUNT(*) as total FROM menus";
-
-        $stmt = $db->prepare($sql);
-
-        $stmt->execute();
-        return (int)$stmt->fetchColumn();
-    }
-
     // Public function to search for a menu item by name or description
     public static function search($search) {
         global $db;

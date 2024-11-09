@@ -17,10 +17,10 @@ class HomeController extends BaseController {
         $reservationStatusStats = Reservation::getReservationStatusStats();
 
         // Get total numbers
-        $totalReservations = Reservation::getTotalReservations();
-        $totalTables = Table::getTotalTables();
-        $totalMenus = Menu::getTotalMenus();
-        $totalUsers = User::getTotalUsers();
+        $totalMenus = Menu::getTotalAmount();
+        $totalReservations = Reservation::getTotalAmount();
+        $totalTables = Table::getTotalAmount();
+        $totalUsers = User::getTotalAmount();
 
         // Get today's reservations
         $todayReservations = Reservation::getTodayReservations();

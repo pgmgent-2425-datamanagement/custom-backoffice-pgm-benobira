@@ -5,16 +5,18 @@ namespace App\Models;
 use App\Models\BaseModel;
 
 class Reservation extends BaseModel {
-    // Define the table and primary key
-    protected $table = 'reservations';
-    protected $pk = 'id';
 
-    // Properties
     public $user_id;
     public $reservation_date;
     public $reservation_time;
     public $guests;
     public $status;
+
+/* 
+* The following method is used to save the reservation
+*
+*
+*/
 
     // Save or update a reservation
     public function save() {
@@ -30,6 +32,12 @@ class Reservation extends BaseModel {
             ':id' => $this->id
         ]);
     }
+
+/* 
+* The following methods are used to add associated data for a reservation
+*
+*
+*/
 
     // Add a new reservation
     public function add() {
@@ -72,26 +80,35 @@ class Reservation extends BaseModel {
         }
     }
 
-    // Delete a reservation and associated links
-    public function delete() {
-        // Delete from reservation_menu and reservation_table first
-        $this->deleteLinks();
-        parent::delete();
-    }
+/* 
+* The following methods are used to delete the associated tables and/or menus (the links not the actual tables and menus)
+*
+*
+*/
 
     // Helper to delete associated menus and tables for a reservation
     public function deleteLinks() {
-        $this->deleteMenus();
         $this->deleteTable();
+        $this->deleteMenus();
     }
 
     public function deleteTable() {
-        $this->db->prepare("DELETE FROM reservation_table WHERE reservation_id = :id")->execute([':id' => $this->id]);
+        $sql = "DELETE FROM reservation_table WHERE reservation_id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':id' => $this->id]);
     }
 
     public function deleteMenus() {
-        $this->db->prepare("DELETE FROM reservation_menu WHERE reservation_id = :id")->execute([':id' => $this->id]);
+        $sql = "DELETE FROM reservation_menu WHERE reservation_id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':id' => $this->id]);
     }
+
+/* 
+* The following methods are used to retrieve associated data for a reservation when editing it
+*
+*
+*/
 
     // Retrieve menus associated with the reservation
     public function getMenus() {
@@ -115,17 +132,11 @@ class Reservation extends BaseModel {
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function allWithUser() {
-        $sql = "SELECT reservations.*, users.name AS user_name 
-                FROM reservations
-                LEFT JOIN users ON reservations.user_id = users.id
-                ORDER BY reservations.reservation_date ASC, reservations.reservation_time ASC";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        
-        $reservations = $stmt->fetchAll();
-        return $this->castToModel($reservations);
-    }
+/*
+* The following methods are used to retrieve data for the dashboard
+*
+*
+*/
 
     // Static method to get the most popular menus
     public static function getMostPopularMenus($limit = 5) {
@@ -159,15 +170,6 @@ class Reservation extends BaseModel {
         return $statusStats;
     }
 
-    // Static method to get the total number of reservations
-    public static function getTotalReservations() {
-        global $db;
-        $sql = "SELECT COUNT(*) as total FROM reservations";
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        return (int)$stmt->fetchColumn();
-    }
-
     // Static method to get today's reservations
     public static function getTodayReservations() {
         global $db;
@@ -183,6 +185,12 @@ class Reservation extends BaseModel {
         $stmt->execute([':today' => $today]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+/*
+* The following method is used to filter reservations
+*
+*
+*/
 
     // Public function to filter reservations by user, date, and status
     public static function filter($userId = null, $reservationDate = null, $status = null) {

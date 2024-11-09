@@ -29,26 +29,4 @@ class Table extends BaseModel {
             ':seats' => $this->seats
         ]);
     }
-
-    // Public function to delete the table
-    public function delete() {
-        $sql = "DELETE FROM tables WHERE id = :id";
-
-        $stmt = $this->db->prepare($sql);
-
-        return $stmt->execute([
-            ':id' => $this->id
-        ]);
-    }
-
-    // Public function to get all tables
-    public static function getTotalTables() {
-        global $db;
-        $sql = "SELECT COUNT(*) as total FROM tables";
-
-        $stmt = $db->prepare($sql);
-
-        $stmt->execute();
-        return (int)$stmt->fetchColumn();
-    }
 }

@@ -119,11 +119,11 @@ class MenuController extends BaseController {
 
         // If the menu item exists, delete it
         if ($menu) {
-            if ($menu->delete()) {
-                // Redirect back to the menus list
-                header('Location: /menus');
-                exit;
-            }
+            // Delete the menu item
+            $menu->delete();
+            // Redirect back to the menus list
+            header('Location: /menus');
+            exit;
         } else {
             // Handle the case where the menu item does not exist
             header('Location: /menus');

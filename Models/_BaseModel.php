@@ -112,6 +112,13 @@ class BaseModel {
     private function getClassName($classname) {
         return (substr($classname, strrpos($classname, '\\') + 1));
     }
-    
 
+    // Public function to get the total count of records for the model
+    public static function getTotalAmount() {
+        $instance = new static();
+        $sql = "SELECT COUNT(*) as total FROM `{$instance->table}`";
+        $stmt = $instance->db->prepare($sql);
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
+    }
 }

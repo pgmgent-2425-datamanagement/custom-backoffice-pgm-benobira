@@ -48,11 +48,11 @@ class UserController extends BaseController {
 
         // If the user exists, delete it
         if ($user) {
-            if ($user->delete()) {
-                // Redirect back to the users list
-                header('Location: /users');
-                exit;
-            }
+            // Delete the user
+            $user->delete();
+            // Redirect back to the users list
+            header('Location: /users');
+            exit;
         } else {
             // Handle the case where the user does not exist
             header('Location: /users');

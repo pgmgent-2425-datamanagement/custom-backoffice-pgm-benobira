@@ -20,29 +20,4 @@ class User extends BaseModel {
             ':id' => $this->id
         ]);
     }
-
-    // Public function to delete the user
-    public function delete () {
-        // Prepare the query
-        $sql = "DELETE FROM users WHERE id = :id";
-
-        // Prepare the statement
-        $stmt = $this->db->prepare($sql);
-
-        // Bind the ID and execute the query
-        return $stmt->execute([
-            ':id' => $this->id
-        ]);
-    }
-
-    // Public function to get all users
-    public static function getTotalUsers() {
-        global $db;
-        $sql = "SELECT COUNT(*) as total FROM users";
-
-        $stmt = $db->prepare($sql);
-
-        $stmt->execute();
-        return (int)$stmt->fetchColumn();
-    }
 }

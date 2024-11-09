@@ -70,11 +70,11 @@ class TableController extends BaseController {
 
         // If the table exists, delete it
         if ($table) {
-            if ($table->delete()) {
-                // Redirect back to the tables list
-                header('Location: /tables');
-                exit;
-            }
+            // Delete the table
+            $table->delete();
+            // Redirect back to the tables list
+            header('Location: /tables');
+            exit;
         } else {
             // Handle the case where the table does not exist
             header('Location: /tables');

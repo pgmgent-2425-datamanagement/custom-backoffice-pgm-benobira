@@ -15,7 +15,6 @@
 
 <div class="mb-6">
     <form method="GET" action="/reservations" class="flex gap-4">
-        <!-- User Filter -->
         <select name="user_id" class="px-4 py-2 border border-gray-300 rounded-md">
             <option value="">All Users</option>
             <?php foreach ($users as $user): ?>
@@ -25,11 +24,9 @@
             <?php endforeach; ?>
         </select>
 
-        <!-- Date Filter -->
         <input type="date" name="reservation_date" value="<?= $selectedDate ?? '' ?>"
             class="px-4 py-2 border border-gray-300 rounded-md">
 
-        <!-- Status Filter -->
         <select name="status" class="px-4 py-2 border border-gray-300 rounded-md">
             <option value="">All Statuses</option>
             <option value="pending" <?= ($selectedStatus == 'pending') ? 'selected' : '' ?>>Pending</option>
@@ -38,6 +35,10 @@
         </select>
 
         <button type="submit" class="bg-lightPrimary hover:bg-primary text-white py-2 px-4 rounded">Filter</button>
+
+        <a href="/reservations" class="bg-white border border-primary text-primary py-2 px-4 rounded hover:bg-gray-100 inline-block">
+            Reset
+        </a>
     </form>
 </div>
 

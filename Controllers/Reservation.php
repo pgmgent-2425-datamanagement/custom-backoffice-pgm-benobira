@@ -31,7 +31,7 @@ class ReservationController extends BaseController {
     }
 
     public static function add() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['user_id']) && isset($_POST['reservation_date']) && isset($_POST['reservation_time']) && isset($_POST['guests']) && isset($_POST['status'])) {
             $reservation = new Reservation();
             $reservation->user_id = $_POST['user_id'];
             $reservation->reservation_date = $_POST['reservation_date'];
@@ -83,7 +83,7 @@ class ReservationController extends BaseController {
         }
     
         // Handle form submission
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['reservation_date']) && isset($_POST['reservation_time']) && isset($_POST['guests']) && isset($_POST['status'])) {
             // Update basic reservation details
             $reservation->reservation_date = $_POST['reservation_date'];
             $reservation->reservation_time = $_POST['reservation_time'];
@@ -121,10 +121,20 @@ class ReservationController extends BaseController {
     }
 
     public static function delete($id) {
+        // Find the reservation by ID
         $reservation = Reservation::find($id);
 
+        // If the reservation exists, delete it
         if ($reservation) {
+            // Delete the associated tables and menus (the links not the actual tables and menus)
+            $reservation->deleteLinks();
+            // Delete the reservation
             $reservation->delete();
+            // Redirect back to the reservations list
+            header('Location: /reservations');
+            exit;
+        } else {
+            // Handle the case where the reservation does not exist
             header('Location: /reservations');
             exit;
         }

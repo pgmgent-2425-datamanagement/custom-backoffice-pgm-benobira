@@ -24,11 +24,16 @@
         <input 
             type="text" 
             name="search" 
-            value="<?= htmlspecialchars($searchTerm ?? '') ?>" 
+            value="<?= $searchTerm ?? '' ?>" 
             placeholder="Search menus by name or description" 
             class="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
         >
+
         <button type="submit" class="bg-lightPrimary hover:bg-primary text-white py-2 px-4 rounded">Search</button>
+
+        <a href="/menus" class="bg-white border border-primary text-primary py-2 px-4 rounded hover:bg-gray-100 inline-block">
+            Reset
+        </a>
     </form>
 </div>
 
