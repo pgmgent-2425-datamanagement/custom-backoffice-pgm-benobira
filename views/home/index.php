@@ -49,33 +49,36 @@
 <div class="bg-white shadow-md rounded-lg p-6 mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 mb-4">Today's Reservations</h2>
     <?php if (!empty($todayReservations)): ?>
-        <table class="min-w-full bg-white shadow-md rounded-lg">
-            <thead>
-                <tr class="bg-gray-200 text-primary uppercase text-sm leading-normal">
-                    <th class="py-3 px-6 text-left">User</th>
-                    <th class="py-3 px-6 text-left">Time</th>
-                    <th class="py-3 px-6 text-left">Guests</th>
-                    <th class="py-3 px-6 text-left">Table</th>
-                    <th class="py-3 px-6 text-left">Status</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600 text-sm font-light">
-                <?php foreach ($todayReservations as $reservation): ?>
-                    <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="py-3 px-6"><?= $reservation['user_name'] ?></td>
-                        <td class="py-3 px-6"><?= date('H:i', strtotime($reservation['reservation_time'])) ?></td>
-                        <td class="py-3 px-6"><?= $reservation['guests'] ?></td>
-                        <td class="py-3 px-6"><?= $reservation['table_number'] ?? 'N/A' ?></td>
-                        <td class="py-3 px-6"><?= ucfirst($reservation['status']) ?></td>
+        <div class="overflow-x-auto border-x border-gray-200">
+            <table class="whitespace-nowrap min-w-full bg-white shadow-md rounded-lg">
+                <thead>
+                    <tr class="bg-gray-200 text-primary uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">User</th>
+                        <th class="py-3 px-6 text-left">Time</th>
+                        <th class="py-3 px-6 text-left">Guests</th>
+                        <th class="py-3 px-6 text-left">Table</th>
+                        <th class="py-3 px-6 text-left">Status</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                    <?php foreach ($todayReservations as $reservation): ?>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6"><?= $reservation['user_name'] ?></td>
+                            <td class="py-3 px-6"><?= date('H:i', strtotime($reservation['reservation_time'])) ?></td>
+                            <td class="py-3 px-6"><?= $reservation['guests'] ?></td>
+                            <td class="py-3 px-6"><?= $reservation['table_number'] ?? 'N/A' ?></td>
+                            <td class="py-3 px-6"><?= ucfirst($reservation['status']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     <?php else: ?>
         <p class="text-gray-600">No reservations for today.</p>
     <?php endif; ?>
 </div>
 
+<!-- Load the Chart.js library -->
 <script>
     // Reservation Status Chart
     const reservationStatusCtx = document.getElementById('reservationStatusChart').getContext('2d');
@@ -89,9 +92,9 @@
             datasets: [{
                 data: reservationStatusCounts,
                 backgroundColor: [
+                    'rgba(199, 190, 229, 0.75)',
                     'rgba(79, 70, 229, 0.75)',
-                    'rgba(34, 197, 94, 0.75)',
-                    'rgba(239, 68, 68, 0.75)'
+                    'rgba(239, 68, 121, 0.75)'
                 ],
             }]
         },

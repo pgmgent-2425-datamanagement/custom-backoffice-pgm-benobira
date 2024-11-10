@@ -24,7 +24,7 @@
         <?php include __DIR__ . '/../partials/mobileMenu.php'; ?>
 
         <!-- Main Content -->
-        <main class="flex-1 p-10">
+        <main class="flex-1 p-6 lg:p-10 overflow-x-auto">
             <?= $content; ?>
         </main>
 

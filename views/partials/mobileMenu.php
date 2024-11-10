@@ -1,14 +1,14 @@
 <!-- Mobile Menu -->
 <div x-data="{ open: false }" class="lg:hidden">
     <!-- Toggle Button -->
-    <button @click="open = !open" class="fixed top-10 right-10 z-50 p-2 bg-indigo-600 text-white rounded-md focus:outline-none">
+    <button @click="open = !open" class="fixed top-6 right-6 z-50 p-2 bg-indigo-600 text-white rounded-md focus:outline-none">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
         </svg>
     </button>
 
     <!-- Mobile Menu -->
-    <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-indigo-600 text-white z-40 flex flex-col p-10 space-y-4">
+    <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-indigo-600 text-white z-40 flex flex-col p-6 space-y-4">
         <a href="/" class="text-2xl font-semibold pb-4">Seat<span class="font-light text-slate-300">Smart</span></a>
         <nav class="flex flex-col space-y-4">
             <a href="/" class="flex items-center gap-2 p-6 hover:bg-indigo-500">

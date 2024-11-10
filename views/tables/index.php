@@ -14,8 +14,8 @@
     </a>
 </div>
 
-<div class="overflow-x-auto">
-    <table class="min-w-full bg-white shadow-md rounded-lg">
+<div class="overflow-x-auto border-x border-gray-200">
+    <table class="whitespace-nowrap min-w-full bg-white shadow-md rounded-lg">
         <thead>
             <tr class="bg-gray-200 text-primary uppercase text-sm leading-normal">
                 <th class="py-3 px-6 text-left">Table Number</th>
@@ -43,6 +43,7 @@
     </div>
 </div>
 
+<!-- Load the Chart.js library -->
 <script>
     const ctx = document.getElementById('tableChart').getContext('2d');
 

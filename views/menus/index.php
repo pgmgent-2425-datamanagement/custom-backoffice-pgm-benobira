@@ -20,7 +20,7 @@
 </div>
 
 <div class="mb-6">
-    <form method="GET" action="/menus" class="flex gap-2">
+    <form method="GET" action="/menus" class="flex flex-col sm:flex-row gap-2">
         <input 
             type="text" 
             name="search" 
@@ -31,14 +31,14 @@
 
         <button type="submit" class="bg-lightPrimary hover:bg-primary text-white py-2 px-4 rounded">Search</button>
 
-        <a href="/menus" class="bg-white border border-primary text-primary py-2 px-4 rounded hover:bg-gray-100 inline-block">
+        <a href="/menus" class="bg-white border border-primary text-primary text-center py-2 px-4 rounded hover:bg-gray-100 inline-block">
             Reset
         </a>
     </form>
 </div>
 
-<div class="overflow-x-auto">
-    <table class="min-w-full bg-white shadow-md rounded-lg">
+<div class="overflow-x-auto border-x border-gray-200">
+    <table class="whitespace-nowrap min-w-full bg-white shadow-md rounded-lg">
         <thead>
             <tr class="bg-gray-200 text-primary uppercase text-sm leading-normal">
                 <th class="py-3 px-6 text-left">Name</th>
