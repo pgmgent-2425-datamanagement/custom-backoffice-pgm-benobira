@@ -142,9 +142,22 @@ class ReservationController extends BaseController {
         }
     }
 
+/* 
+* API methods
+*
+*
+*/
+
     // APIGetReservations (/api/reservations)
     public static function APIGetReservations() {
-        $reservations = Reservation::all();
+        // Retrieve filters from the query parameters
+        $userId = $_GET['user_id'] ?? null;
+        $reservationDate = $_GET['date'] ?? null;
+        $status = $_GET['status'] ?? null;
+
+        // Use the filter function from the Reservation model
+        $reservations = Reservation::filter($userId, $reservationDate, $status);
+
         if (!$reservations) {
             http_response_code(404);
             echo json_encode(['error' => 'No reservations found']);
