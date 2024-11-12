@@ -1,3 +1,5 @@
+![banner](.github/banner.png)
+
 # SeatSmart Backoffice
 
 ## Student Information
@@ -43,12 +45,12 @@ SeatSmart is a custom backoffice application designed for managing restaurant re
 - **File:** `./database.sql`
 - This SQL file contains the schema and data for setting up the SeatSmart database.
 
-## Installation
-- Clone the repository from [GitHub Classroom Link](https://github.com/pgmgent-2425-datamanagement/custom-backoffice-pgm-benobira).
-- Configure your database settings in `config.php`.
-- Import `database.sql` to your MySQL database.
-- Access the project through your web server setup.
+## Installation tips
+- Don't forget to install composer `ddev composer install`
+- Import `database.sql` to your MySQL database
+- Don't forget to install npm and run `npm run build` for Tailwind
+- If the `config.php` is unchanged the project should run on `https://127.0.0.1:7001` (if it was still available).
 
-## Screencast Overview
+## Screencast Overview (not included in repo)
 - **File:** `./screencast.mp4`
 - A brief video demonstration that walks through the functionality of the SeatSmart application, showcasing the user interface and the features implemented.
